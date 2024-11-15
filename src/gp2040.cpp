@@ -368,9 +368,9 @@ GP2040::BootAction GP2040::getBootAction() {
                 bool webConfigLocked  = forcedSetupOptions.mode == FORCED_SETUP_MODE_LOCK_WEB_CONFIG ||
                                         forcedSetupOptions.mode == FORCED_SETUP_MODE_LOCK_BOTH;
 
-				if (gamepad->pressedS1() && gamepad->pressedS2() && gamepad->pressedUp()) {
+				if (gamepad->pressedS2()) {
 					return BootAction::ENTER_USB_MODE;
-				} else if (!webConfigLocked && gamepad->pressedS2()) {
+				} else if (gamepad->pressedL1() && gamepad->pressedR1()) {
 					return BootAction::ENTER_WEBCONFIG_MODE;
                 } else {
                     if (!modeSwitchLocked) {
@@ -423,8 +423,8 @@ GP2040::BootAction GP2040::getBootAction() {
 GP2040::RebootHotkeys::RebootHotkeys() :
 	active(false),
 	noButtonsPressedTimeout(nil_time),
-	webConfigHotkeyMask(GAMEPAD_MASK_S2 | GAMEPAD_MASK_B3 | GAMEPAD_MASK_B4),
-	bootselHotkeyMask(GAMEPAD_MASK_S1 | GAMEPAD_MASK_B3 | GAMEPAD_MASK_B4),
+	webConfigHotkeyMask(),
+	bootselHotkeyMask(),
 	rebootHotkeysHoldTimeout(nil_time) {
 }
 
